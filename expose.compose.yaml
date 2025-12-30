@@ -4,3 +4,15 @@ services:
       - 9120:9120
     environment:
       KOMODO_FIRST_SERVER: http://periphery:8120
+      KOMODO_HOST: http://localhost:9120
+      KOMODO_LOGGING_LEVEL: ${KOMODO_LOGGING_LEVEL:-info}
+      KOMODO_OIDC_ENABLED: ${KOMODO_OIDC_ENABLED:-true}
+      KOMODO_OIDC_PROVIDER: ${KOMODO_OIDC_PROVIDER:-https://lafayette-assessor-prod-f1v8rd.us1.zitadel.cloud}
+      KOMODO_OIDC_CLIENT_ID: ${KOMODO_OIDC_CLIENT_ID:-353209012407311487}
+      KOMODO_OIDC_CLIENT_SECRET: ${KOMODO_OIDC_CLIENT_SECRET:-xXxhicuCidKbQ23NJmiTgfzA7Ic4nUWd20eihnuWm5nEJ4GWODUho3BOYJUDCvXR}
+      KOMODO_OIDC_USE_FULL_EMAIL: ${KOMODO_OIDC_USE_FULL_EMAIL:-true}
+      ## Add additional trusted audiences for token claims verification.
+      ## Supports comma separated list, and passing with _FILE (for compose secrets).
+      # KOMODO_OIDC_ADDITIONAL_AUDIENCES: '["350301253328176006"]' # Alt: KOMODO_OIDC_ADDITIONAL_AUDIENCES_FILE
+      #KOMODO_OIDC_ADDITIONAL_AUDIENCES: ${KOMODO_OIDC_ADDITIONAL_AUDIENCES:-}
+      # KOMODO_OIDC_ALLOW_ADDITIONAL_AUDIENCES: ${KOMODO_OIDC_ALLOW_ADDITIONAL_AUDIENCES:-true}
