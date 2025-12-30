@@ -180,6 +180,8 @@ pub struct Env {
   pub komodo_oidc_additional_audiences: Option<Vec<String>>,
   /// Override `oidc_additional_audiences` from file
   pub komodo_oidc_additional_audiences_file: Option<PathBuf>,
+  /// Override `oidc_allow_additional_audiences`
+  pub komodo_oidc_allow_additional_audiences: Option<bool>,
 
   /// Override `google_oauth.enabled`
   pub komodo_google_oauth_enabled: Option<bool>,
@@ -465,6 +467,14 @@ pub struct CoreConfig {
   #[serde(default, skip_serializing_if = "Vec::is_empty")]
   pub oidc_additional_audiences: Vec<String>,
 
+  /// Allow all additional audiences that may be set other than `client_id`.
+  /// The OIDC spec only requires that the `client_id` audience is present OR 
+  /// that the client trust additional audiences.  This will allow the presence of
+  /// additional audiences without verifying them specifically.
+  #[serde(default)]
+  pub oidc_allow_additional_audiences: bool,
+
+
   // =========
   // = Oauth =
   // =========
@@ -730,6 +740,7 @@ impl Default for CoreConfig {
       oidc_client_secret: Default::default(),
       oidc_use_full_email: Default::default(),
       oidc_additional_audiences: Default::default(),
+      oidc_allow_additional_audiences: Default::default(),
       google_oauth: Default::default(),
       github_oauth: Default::default(),
       webhook_secret: Default::default(),
@@ -813,6 +824,7 @@ impl CoreConfig {
         .iter()
         .map(|aud| empty_or_redacted(aud))
         .collect(),
+      oidc_allow_additional_audiences: config.oidc_allow_additional_audiences,
       google_oauth: OauthCredentials {
         enabled: config.google_oauth.enabled,
         id: empty_or_redacted(&config.google_oauth.id),

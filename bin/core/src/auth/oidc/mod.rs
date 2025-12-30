@@ -188,7 +188,7 @@ async fn callback(
     verifier
   } else {
     verifier.set_other_audience_verifier_fn(|aud| {
-      additional_audiences.contains(aud)
+      additional_audiences.contains(aud) || core_config().oidc_allow_additional_audiences
     })
   };
 
